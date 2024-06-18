@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Questions</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>All Questions</h1>
+    <div class="header-links"><a th:href="@{/}">Back to Main</a>
+    </div>
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>Question</th>
+            <th>Image</th>
+            <th>Code Snippet</th>
+            <th>Answers</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.text}"></td>
+            <td th:if="${question.image != null}">
+                <img th:src="'data:image/png;base64,' + ${question.image}" alt="Image" width="100"/>
+            </td>
+            <td th:if="${question.image == null}"></td>
+            <td id="codeSnippet" th:if="${question.codeSnippet != null}" th:text="${question.codeSnippet}"></td>
+            <td th:if="${question.codeSnippet == null}"></td>
+            <td>
+                <ul>
+                    <li th:each="answer : ${question.answers}" th:text="${answer.text} + ' (Correct: ' + ${answer.correct} + ')'"></li>
+                </ul>
+            </td>
+            <td>
+                <form th:action="@{/delete-question/{id}(id=${question.id})}" method="post" th:onsubmit="return confirm('Are you sure you want to delete this question?');">
+                    <button type="submit">Delete</button>
+                </form>
+                <p></p>
+                <a th:href="@{/edit-question/{id}(id=${question.id})}">Edit</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

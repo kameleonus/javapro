@@ -18,9 +18,13 @@
 
 </nav>
 <main>
-  <a sec:authorize="hasRole('student')" th:href="@{/test}">Start Test</a>
-  <a sec:authorize="hasRole('ADMIN')"  th:href="@{/question-add}">Edit Test</a>
-
+  <div sec:authorize="hasRole('student')">
+    <a th:if="${userScore == 0}" th:href="@{/start-test}">Start Test</a>
+    <span th:if="${userScore > 0}">Twój wynik został zapisany.</span>
+  </div>
+  <a sec:authorize="hasRole('ADMIN')"  th:href="@{/add-question}">Dodaj pytanie</a>
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/questions}">Przegląd pytań</a>
+  <a sec:authorize="hasRole('ADMIN')" th:href="@{/users}">Wyniki użytkowników</a>
 </main>
 
 </body>

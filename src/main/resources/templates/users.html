@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Users and Scores</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>All Users and Scores</h1>
+    <div class="header-links"><a th:href="@{/}">Back to Main</a></div>
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Score</th>
+            <th>Delete user</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.score}"></td>
+            <td>
+                <form th:id="'delete-form-' + ${user.id}" th:action="@{/delete-user/{id}(id=${user.id})}" method="post" th:onsubmit="return confirm('Are you sure you want to delete this user?');">
+                    <input type="hidden" name="_method" value="DELETE"/>
+                    <button type="submit" th:if="${user.role} == 'student'">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

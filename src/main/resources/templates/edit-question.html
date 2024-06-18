@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Question</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+  <h1>Edit Question</h1>
+  <div class="header-links">
+    <a th:href="@{/questions}">Back to Questions</a>
+  </div>
+</header>
+<main>
+  <form th:action="@{/edit-question/{id}(id=${question.id})}" method="post" enctype="multipart/form-data">
+    <div>
+      <label for="text">Question Text:</label>
+      <input type="text" id="text" name="text" th:value="${question.text}"/>
+    </div>
+    <div>
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image"/>
+    </div>
+    <div>
+      <label for="codeSnippet">Code Snippet:</label>
+      <textarea id="codeSnippet" name="codeSnippet" th:text="${question.codeSnippet}"></textarea>
+    </div>
+    <div>
+      <label for="answers[0].text">Answer 1:</label>
+      <input type="text" id="answers[0].text" name="answers[0].text" th:value="${question.answers[0].text}"/>
+      <label for="answers[0].correct">Correct:</label>
+      <input type="checkbox" id="answers[0].correct" name="answers[0].correct" th:checked="${question.answers[0].correct}"/>
+    </div>
+    <div>
+      <label for="answers[1].text">Answer 2:</label>
+      <input type="text" id="answers[1].text" name="answers[1].text" th:value="${question.answers[1].text}"/>
+      <label for="answers[1].correct">Correct:</label>
+      <input type="checkbox" id="answers[1].correct" name="answers[1].correct" th:checked="${question.answers[1].correct}"/>
+    </div>
+    <div>
+      <label for="answers[2].text">Answer 3:</label>
+      <input type="text" id="answers[2].text" name="answers[2].text" th:value="${question.answers[2].text}"/>
+      <label for="answers[2].correct">Correct:</label>
+      <input type="checkbox" id="answers[2].correct" name="answers[2].correct" th:checked="${question.answers[2].correct}"/>
+    </div>
+    <div>
+      <label for="answers[3].text">Answer 4:</label>
+      <input type="text" id="answers[3].text" name="answers[3].text" th:value="${question.answers[3].text}"/>
+      <label for="answers[3].correct">Correct:</label>
+      <input type="checkbox" id="answers[3].correct" name="answers[3].correct" th:checked="${question.answers[3].correct}"/>
+    </div>
+    <div>
+      <button type="submit">Update Question</button>
+    </div>
+  </form>
+</main>
+</body>
+</html>

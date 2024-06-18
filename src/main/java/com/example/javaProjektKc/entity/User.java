@@ -24,6 +24,11 @@ public class User {
 
         @Column(nullable = false)
         private int score;
+        @Column(name = "finished_test")
+        private boolean finishedTest;
+
+
+
     public User() {}
 
     public User(String email, String password, String role) {
@@ -31,6 +36,7 @@ public class User {
         this.password = password;
         this.role = role;
         this.score-=0;
+        this.finishedTest=false;
     }
 
     public Long getId() {
@@ -67,5 +73,12 @@ public class User {
 
     public void setScore(int score) {
         this.score = score;
+    }
+    public boolean isFinishedTest() {
+        return finishedTest;
+    }
+
+    public void setFinishedTest(boolean finishedTest) {
+        this.finishedTest = finishedTest;
     }
 }

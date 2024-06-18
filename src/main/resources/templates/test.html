@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Test</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
@@ -7,16 +7,23 @@
 <body>
 <header>
     <h1>Test</h1>
-
 </header>
-<nav>
-
-
-</nav>
 <main>
-
-
+    <form th:action="@{/submit-answer}" method="post">
+        <input type="hidden" name="questionId" th:value="${question.id}"/>
+        <p th:text="${question.text}">Question text</p>
+        <div th:if="${question.image != null}">
+            <img id="Qimg" th:src="'data:image/jpeg;base64,' + ${question.image}" alt="Question Image"/>
+        </div>
+        <div id="codeSnippet" th:if="${question.codeSnippet != null}">
+            <pre><code th:text="${question.codeSnippet}"></code></pre>
+        </div>
+        <div th:each="answer : ${question.answers}">
+            <input type="checkbox" th:value="${answer.id}" th:name="answerIds" id="answer-[[${answer.id}]]"/>
+            <label th:for="'answer-' + ${answer.id}" th:text="${answer.text}">Answer text</label>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
 </main>
-
 </body>
 </html>

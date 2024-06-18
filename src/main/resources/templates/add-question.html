@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add question</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<header>
+    <h1>Add question</h1>
+    <div class="header-links"><a th:href="@{/}">Back to Main</a></div>
+</header>
+<nav></nav>
+<main>
+    <form th:action="@{/add-question}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="text">Question Text:</label>
+            <textarea id="text" name="text" required></textarea>
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <div>
+            <label for="codeSnippet">Code Snippet:</label>
+            <textarea id="codeSnippet" name="codeSnippet"></textarea>
+        </div>
+        <div>
+            <label>Answers:</label>
+            <div th:each="i : ${#numbers.sequence(0, 3)}">
+                <input type="text" th:name="|answers[${i}].text|" th:placeholder="'Answer ' + (${i} + 1)" required>
+                <input type="checkbox" th:name="|answers[${i}].correct|"> Correct
+            </div>
+        </div>
+        <div>
+            <button type="submit">Add Question</button>
+        </div>
+    </form>
+    <div th:if="${error}">
+        <p style="color: red;" th:text="${error}"></p>
+    </div>
+</main>
+</body>
+</html>
